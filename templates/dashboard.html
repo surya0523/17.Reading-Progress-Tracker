@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Add a Book</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.title.label }} {{ form.title(class="form-control") }}<br><br>
+    {{ form.total_pages.label }} {{ form.total_pages(class="form-control") }}<br><br>
+    {{ form.pages_read.label }} {{ form.pages_read(class="form-control") }}<br><br>
+    {{ form.submit(class="btn btn-success") }}
+</form>
+
+<hr>
+<h3>Your Books:</h3>
+{% if last %}
+<p><strong>Last viewed book:</strong> {{ last }}</p>
+{% endif %}
+
+<ul>
+{% for book in books %}
+    <li>
+        <strong>{{ book.title }}</strong> — {{ book.pages_read }}/{{ book.total_pages }} pages<br>
+        <a href="{{ url_for('edit_book', id=book.id) }}">Edit</a>
+    </li>
+{% else %}
+    <li>No books added yet.</li>
+{% endfor %}
+</ul>
+{% endblock %}
